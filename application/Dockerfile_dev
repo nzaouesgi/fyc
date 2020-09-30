@@ -1,0 +1,6 @@
+FROM node:12.18.4-stretch
+
+RUN mkdir /fyc
+WORKDIR /fyc
+
+CMD [ "/bin/bash" ]
