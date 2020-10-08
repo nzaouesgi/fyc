@@ -1,0 +1,9 @@
+<%- include('partials/header') -%>
+<h1>Valeur de "foo": <%- locals.encodeForHtml(locals.foo) %></h1>
+<input placeholder="nom" value=<%- locals.encodeForHtml(locals.foo) %> type='text'>
+<script>
+
+    const param = "<%- locals.encodeForJavascript(locals.foo) %>"
+
+</script>
+<%- include('partials/footer') -%>
