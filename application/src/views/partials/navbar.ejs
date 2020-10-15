@@ -1,0 +1,16 @@
+<nav class="navbar navbar-expand-sm navbar-dark">
+    <a class="navbar-brand" href="/">Secure Forum</a>
+    <div class="navbar-nav mr-auto">
+        <div class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+        </div>
+    </div>
+    <div class="navbar-nav">
+        <% if (typeof connectedUser === 'object') { %>
+            <a href='/profile' class="nav-item nav-link">Connected as <b><%- encodeForHtml(connectedUser.username) %></b></a>
+            <a href='/logout' class="nav-item nav-link">Logout</a>
+        <% } else { %>
+            <a href='/login' class="nav-item nav-link">Login</a>
+        <% } %>
+    </div>
+</nav>

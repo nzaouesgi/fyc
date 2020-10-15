@@ -1,8 +1,19 @@
 'use strict'
 
 const { Sequelize } = require('sequelize')
+const os = require('os')
+const path = require('path')
 
-const sequelize = new Sequelize('sqlite::memory')
+const sqliteDatabasePath = path.join(os.tmpdir(), 'forum_database.sqlite')
+
+const sequelize = new Sequelize({
+    dialect: 'sqlite',
+    storage: sqliteDatabasePath,
+    logging: false,
+    dialectOptions: {
+        multipleStatements: true
+    }
+})
 
 module.exports = sequelize
 

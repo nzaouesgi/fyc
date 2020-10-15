@@ -1,0 +1,20 @@
+<%- include('partials/header') -%>
+<%- include('partials/navbar') -%>
+<div class="container-fluid">
+    <div class="card mx-auto my-3 w-50 text-center ">
+        <div class="card-header">
+            <h3 class="text-center">Login to your account</h3>
+            <p><a href="/signup">Create a new account</a></p>
+        </div>
+        <div class="card-body">
+            <form id="login-form" class="m-3">
+                <input type="text" name="email" class="my-3 form-control" placeholder="Email">
+                <input type="password" name="password" class="my-3 form-control" placeholder="Password">
+                <button type="submit" class="btn btn-dark" id="login-form-submit">Login</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/validator/13.1.17/validator.min.js"></script>
+<script type="application/javascript" src="/static/login.js"></script>
+<%- include('partials/footer') -%>

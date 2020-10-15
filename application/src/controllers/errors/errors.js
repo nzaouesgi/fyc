@@ -1,6 +1,7 @@
 'use strict'
 
 const errorHandler = (err, req, res, next) => {
+    console.error(err)
     res.status(500).end(`Something wrong happened (${err.message})`)
 }   
 
