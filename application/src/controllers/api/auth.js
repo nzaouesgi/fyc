@@ -5,13 +5,13 @@ const authService = require('../../services/authService')
 const router = Router()
 const jsonParser = require('express').json
 
-router.post('/login', jsonParser(),  async (req, res, next) => {
+router.post('/login', jsonParser(), (req, res, next) => {
     
     authService.login(req.body)
     
     .then(user => { 
         
-        if (!user){
+        if (user === null){
             res.status(401).end()
             return 
         }
@@ -19,10 +19,9 @@ router.post('/login', jsonParser(),  async (req, res, next) => {
         req.session.user = user.id
 
         req.session.save(err => {
+            
             res.status(204).end()
         })
-        
-        res.status(204).end()
     })
     
     .catch(next)

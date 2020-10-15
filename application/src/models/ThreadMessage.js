@@ -15,6 +15,7 @@ ThreadMessage.initialize = function (sequelize){
             type: DataTypes.TEXT,
             allowNull: false
         }
+        
     }, { sequelize })
 }
 

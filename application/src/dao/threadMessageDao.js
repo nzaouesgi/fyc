@@ -7,7 +7,7 @@ module.exports = {
     insertOne: async function ({ id, content, authorId, threadId }){
 
         const sql = `INSERT INTO ${ThreadMessage.tableName} (id, content, createdAt, updatedAt, authorId, threadId)` + 
-            ` VALUES ("${id}"; "${content}", "${new Date()}", "${new Date()}", "${authorId}", "${threadId}")`
+            ` VALUES ("${id}", "${content}", "${new Date()}", "${new Date()}", "${authorId}", "${threadId}")`
 
         await ThreadMessage.sequelize.query(sql, {
             type: QueryTypes.INSERT

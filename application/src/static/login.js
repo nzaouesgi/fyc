@@ -37,7 +37,7 @@
             throw new Error(`An error occured (code=${status})`)
     }
 
-    window.addEventListener('load', function (ev) {
+    window.addEventListener('load', function () {
 
         const formElement = document.getElementById('login-form')
         const submitButton = document.getElementById('login-form-submit')

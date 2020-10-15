@@ -22,7 +22,7 @@ router.get('/', async (req, res, next) => {
     } catch (e) { next(e) }
 })
 
-router.get('/', json(), async (req, res, next) => {
+router.post('/', json(), async (req, res, next) => {
 
     try {
 
@@ -36,6 +36,39 @@ router.get('/', json(), async (req, res, next) => {
             .json(thread)
 
     } catch (e) { next(e) }
+})
+
+router.get('/:threadId/messages', async (req, res, next) => {
+    
+    try {
+
+        const { threadId } = req.params
+        const { page, limit } = req.query
+
+        const pagination = await threadMessageService.paginate(page, limit, threadId)
+
+        res.json({
+            count: pagination.count,
+            data: pagination.map(message => message.toJSON())
+        })
+
+    } catch (e) { next(e) }
+})
+
+router.post('/:threadId/messages', json(), async (req, res, next) => {
+
+    try {
+
+        const { threadId } = req.params
+        const { content } = req.body
+
+        const message = await threadMessageService.create(content, threadId)
+
+        res.status(204).json({
+            data: message.toJSON()
+        })
+
+    } catch (e){ next(e) }
 })
 
 module.exports = router

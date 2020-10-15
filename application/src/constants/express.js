@@ -30,11 +30,11 @@ const store = new SessionStore({
 
 app.use(session({
     resave: false,
-    
 	saveUninitialized: true,
     store,
     secret: 'notverysecret'
 }))
+
 app.use(deserializeUser)
 
 app.use('/static', express.static(path.resolve(rootDir, 'static')))
