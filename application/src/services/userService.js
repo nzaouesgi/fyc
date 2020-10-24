@@ -8,13 +8,7 @@ const { UserEmailAlreadyTakenError, UserUsernameAlreadyTakenError } = require('.
 
 const userService = {
 
-    createUser: async function (params) {
-
-        const {
-            email,
-            username,
-            password
-        } = params
+    createUser: async function ({ email, username, password }) {
 
         const hash = crypto.createHash('md5')
         hash.update(password)

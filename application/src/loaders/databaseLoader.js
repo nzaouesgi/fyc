@@ -1,16 +1,14 @@
 'use strict'
 
 const sequelize = require('../constants/sequelize')
-const Thread = require('../models/Thread')
-const ThreadMessage = require('../models/ThreadMessage')
+const Post = require('../models/Post')
 const User = require('../models/User')
 
 const databaseLoader = async () => {
 
     const models = [ 
         User,
-        Thread,
-        ThreadMessage
+        Post
     ]
 
     for (const model of models)
@@ -20,8 +18,8 @@ const databaseLoader = async () => {
     for (const model of models)
         if (typeof model.associate === 'function')
             model.associate(Object.fromEntries(models.map(m => [ m.name, m ])))
-
-    await sequelize.sync({ alter: true })
+    
+    await sequelize.sync()
 }
 
 module.exports = databaseLoader

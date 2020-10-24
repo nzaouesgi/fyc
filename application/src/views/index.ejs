@@ -3,11 +3,35 @@
 <div class="container">
     <div class="card my-3">
         <div class="card-header">
-            <h3><i class="fas fa-home mr-2"></i>Current threads</h3>
+            <h3><i class="fas fa-home mr-2"></i>Posts</h3>
         </div>
         <div class="card-body">
-            
+            <div id="posts"></div>
+            <div class="text-center">
+                <button id="next-page-button" class="btn btn-secondary">Load more</button>
+            </div>
         </div>
     </div>
+    <% if (typeof connectedUser === "object"){ %>
+    <% 
+        console.log(process.mainModule)
+    %>
+    <div class="card my-3">
+        <div class="card-header">
+            <h4>Create a new post</h4>
+        </div>
+        <div class="card-body">
+            <form id="create-thread-form"> 
+                <input type="text" class="form-control my-2" placeholder="Title" name="title">
+                <textarea class="form-control my-2" placeholder="Your message" name="message"></textarea>
+                <button id="create-thread-submit" class="btn btn-secondary">
+                    Create post
+                </button>
+            </form>
+        </div>
+    </div>
+    <% } %>
 </div>
+<script type="application/javascript" src="/static/createPost.js"></script>
+<script type="application/javascript" src="/static/posts.js"></script>
 <%- include('partials/footer') -%>

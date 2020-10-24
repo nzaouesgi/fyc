@@ -2,6 +2,7 @@
 
 const escapingFunctions = require('../middlewares/escaping')
 const { Router } = require('express')
+const userService = require('../../services/userService')
 
 const router = Router()
 
@@ -9,6 +10,23 @@ router.use(escapingFunctions)
 
 router.get('/', (req, res, next) => {
     res.render('index')
+})
+
+router.get('/profile', (req, res, next) => {
+    res.render('profile', { ...res.locals.connectedUser.get() })
+})
+
+router.get('/users/:id', async (req, res, next) => {
+
+    try {
+
+    const user = await userService.findUserById(req.params.id)
+
+    res.render('user', {
+        user
+    })
+
+    } catch (e){ next(e) }
 })
 
 router.get('/login', (req, res, next) => {

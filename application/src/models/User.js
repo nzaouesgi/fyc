@@ -34,20 +34,12 @@ User.initialize = function (sequelize) {
 
 User.associate = function (models) {
 
-    User.hasMany(models.Thread, {
+    User.hasMany(models.Post, {
         foreignKey: {
             allowNull: false,
             name: 'authorId'
         },
         as: 'threads'
-    })
-
-    User.hasMany(models.ThreadMessage, {
-        foreignKey: {
-            allowNull: false,
-            name: 'authorId'
-        },
-        as: 'threadMessages'
     })
 }
 
