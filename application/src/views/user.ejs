@@ -1,0 +1,28 @@
+<%- include('partials/header') -%>
+<%- include('partials/navbar') -%>
+<div class="container">
+    <div class="card my-2">
+        <div class="card-header">
+            <h4>Profile of <span id="username"></span></h4>
+        </div>
+        <div class="card-body">
+            <p>Email: <span id="email"></span></p>
+            <p>Created at: <span id="created-at"></span></p>
+        </div>
+    </div>
+</div>
+<script type="application/javascript">
+
+window.addEventListener('load', function (){
+
+    // XSS in Javascript context
+    const user = <%- JSON.stringify(user) %>
+
+    document.getElementById('username').innerHTML = user.username
+
+    document.getElementById('email').innerHTML = user.email
+    document.getElementById('created-at').innerHTML = new Date(user.createdAt).toLocaleString()
+})
+
+</script>
+<%- include('partials/footer') -%>
