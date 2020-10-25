@@ -12,8 +12,6 @@
             const formEntries = Array.from(formData.entries())
             const formObject = Object.fromEntries(formEntries)
 
-            console.log(formObject)
-
             const response = await fetch('/api/posts', {
                 method: 'POST',
                 body: JSON.stringify(formObject),

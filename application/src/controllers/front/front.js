@@ -13,7 +13,7 @@ router.get('/', (req, res, next) => {
 })
 
 router.get('/profile', (req, res, next) => {
-    res.render('profile', { ...res.locals.connectedUser.get() })
+    res.render('profile', { ...res.locals.connectedUser })
 })
 
 router.get('/users/:id', async (req, res, next) => {

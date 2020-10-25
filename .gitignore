@@ -1,1 +1,4 @@
 **/node_modules/**/*
+application/src/static/user_img/*.png
+application/src/static/user_img/*.jpg
+application/src/static/user_img/*.jpeg

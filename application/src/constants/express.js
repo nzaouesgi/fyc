@@ -51,6 +51,6 @@ app.use('/api', api)
 
 app.all('*', errors.notFoundHandler)
 
-//app.use(errors.errorHandler)
+app.use(errors.errorHandler)
 
 module.exports = app

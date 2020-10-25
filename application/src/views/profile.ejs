@@ -1,18 +1,23 @@
 <%- include('partials/header') -%>
 <%- include('partials/navbar') -%>
 <div class="container-fluid">
+    <div id="user-id" class="d-none"><%- connectedUser.id %></div>
     <div class="card mx-auto my-3 w-50">
         <div class="card-header">
             <h3 class="text-center">Update your profile</h3>
         </div>
         <div class="card-body">
-            <form id="login-form" class="m-3">
+            <form id="profile-form" class="m-3">
                 <label class="font-weight-bold">Username</label>
                 <input type="text" name="username" value="<%- connectedUser.username %>" class="my-2 form-control" placeholder="Username">
                 <label class="font-weight-bold">Profile picture</label>
+
+                <% if (connectedUser.picture) { %>
+                <img width="100" src="/static/user_img/<%- connectedUser.picture %>">
+                <% } %>
                 <input type="file" class="form-control-file my-2" name="picture">
-                <button type="submit" class="btn btn-dark" id="login-form-submit">Update profile</button>
-            </form>
+                <button type="submit" class="btn btn-dark" id="profile-form-submit">Update profile</button>
+            </form> 
         </div>
     </div>
     <div class="card mx-auto my-3 w-50">
@@ -20,7 +25,7 @@
             <h3 class="text-center">Reset password</h3>
         </div>
         <div class="card-body">
-            <form id="login-form" class="m-3">
+            <form id="password-form" class="m-3">
                 <label class="font-weight-bold">Current password</label>
                 <input type="password" name="current-password" class="my-2 form-control">
                 <label class="font-weight-bold">New password</label>
@@ -33,5 +38,5 @@
     </div>
 </div>
 <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/validator/13.1.17/validator.min.js"></script>
-<script type="application/javascript" src="/static/login.js"></script>
+<script type="application/javascript" src="/static/profile.js"></script>
 <%- include('partials/footer') -%>

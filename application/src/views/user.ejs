@@ -3,6 +3,7 @@
 <div class="container">
     <div class="card my-2">
         <div class="card-header">
+            
             <h4>Profile of <span id="username"></span></h4>
         </div>
         <div class="card-body">
@@ -19,7 +20,6 @@ window.addEventListener('load', function (){
     const user = <%- JSON.stringify(user) %>
 
     document.getElementById('username').innerHTML = user.username
-
     document.getElementById('email').innerHTML = user.email
     document.getElementById('created-at').innerHTML = new Date(user.createdAt).toLocaleString()
 })

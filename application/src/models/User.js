@@ -1,7 +1,6 @@
 'use strict'
 
 const { Model, DataTypes } = require('sequelize')
-const sequelize = require('../constants/sequelize')
 const { idType } = require('./helpers/typeHelpers')
 
 class User extends Model {}
@@ -22,6 +21,11 @@ User.initialize = function (sequelize) {
             type: DataTypes.STRING(255),
             allowNull: false,
             unique: true
+        },
+
+        picture: {
+            type: DataTypes.STRING(1024),
+            allowNull: true
         },
         
         password: {

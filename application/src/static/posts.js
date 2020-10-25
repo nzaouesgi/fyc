@@ -12,10 +12,12 @@
         const header = document.createElement('div')
 
         const userImage = document.createElement('img')
-        userImage.src = '/static/user.png'
-        userImage.height = '25'
-        userImage.width = '25'
+        userImage.src = post.author.picture ?  `/static/user_img/${post.author.picture}` : '/static/user.png'
+        userImage.style.borderRadius = '25px'
+        userImage.height = '50'
+        userImage.width = '50'
         userImage.style.display = 'inline'
+        userImage.style.objectFit = 'cover'
         userImage.className = 'mr-2'
         
         const title = document.createElement('h5')
