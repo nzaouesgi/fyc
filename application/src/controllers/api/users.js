@@ -9,8 +9,12 @@ const multer = require('multer')
 const router = Router()
 
 router.post('/', jsonParser, async (req, res, next) => {
-    
+
     try {
+
+        for (const param in req.body)
+            if (typeof req.body[param] === 'string')
+                req.body[param] = res.locals.encodeForHtml(req.body[param])
         
         const user = await userService.createUser(req.body)
         res.status(201).json(user.toJSON())

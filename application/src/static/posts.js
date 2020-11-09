@@ -48,7 +48,7 @@
 
         const userInfo = document.createElement('a')
         userInfo.href = `/users/${post.author.id}`
-        userInfo.innerHTML = post.author.username
+        userInfo.textContent = post.author.username
 
         const details = document.createElement('small')
         details.append(' by ')
