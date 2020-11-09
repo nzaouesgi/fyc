@@ -29,9 +29,9 @@
         picture.style.objectFit = 'cover'
         picture.className = 'm-2 d-block'
 
-        document.getElementById('username').innerHTML = user.username
-        document.getElementById('email').innerHTML = user.email
-        document.getElementById('created-at').innerHTML = new Date(user.createdAt).toLocaleString()
+        document.getElementById('username').textContent = user.username
+        document.getElementById('email').textContent = user.email
+        document.getElementById('created-at').textContent = new Date(user.createdAt).toLocaleString()
     })
 
 </script>
