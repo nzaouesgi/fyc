@@ -2,7 +2,7 @@
 
 const { v4 } = require('uuid')
 const postDao = require('../dao/postDao')
-const Thread = require('../models/Post')
+const Post = require('../models/Post')
 
 module.exports = {
 
@@ -21,8 +21,15 @@ module.exports = {
             authorId
         })
 
-        const createdPost = await Thread.findByPk(id)
+        const createdPost = await Post.findByPk(id)
 
         return createdPost
+    },
+
+    delete: async function (id){
+        
+        const post = await postDao.findById(id)
+
+        await postDao.delete(post)
     }
 }

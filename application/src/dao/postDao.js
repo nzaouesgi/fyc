@@ -15,6 +15,13 @@ module.exports = {
         })
     },
 
+    findById: async function (id){
+        
+        const post = await Post.findByPk(id)
+        
+        return post
+    },
+
     paginate: async function ({page, limit}){
 
         const pagination = await Post.findAndCountAll({
@@ -26,5 +33,9 @@ module.exports = {
         })
 
         return pagination
+    },
+
+    delete: async function (post){
+        await post.destroy()
     }
 }

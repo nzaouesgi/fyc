@@ -39,7 +39,13 @@
                 body: formData
             })
 
-            const updatedUser = await response.json()
+            const json = await response.json()
+
+            if (response.status !== 200){
+                throw new Error(json.errors ? json.errors.join('\r\n')  : 'Something wrong happened')
+            }
+
+            const updatedUser = json
 
             return updatedUser
         }

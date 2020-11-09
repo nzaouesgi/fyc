@@ -4,12 +4,12 @@ const { Sequelize } = require('sequelize')
 const os = require('os')
 const path = require('path')
 
-const sqliteDatabasePath = path.join(os.tmpdir(), 'forum_database.sqlite')
+const sqliteDatabasePath = path.join(os.tmpdir(), 'postbin_database.sqlite')
 
 const sequelize = new Sequelize({
     dialect: 'sqlite',
     storage: sqliteDatabasePath,
-    logging: false,
+    logging: console.log,
     dialectOptions: {
         multipleStatements: true
     }

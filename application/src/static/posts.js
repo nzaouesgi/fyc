@@ -5,6 +5,27 @@
     const itemsPerPage = 5
     const postsDiv = document.getElementById('posts')
 
+    const connectedUserMeta = document.querySelector('meta[name="connected-user"]')
+
+    async function deletePost(post){
+
+        const response = await fetch(`/api/posts/${post.id}`, {
+            method: 'DELETE'  
+        })
+
+        if (response.status !== 204){
+
+            const json = await response.json()
+
+            if (Array.isArray(json.errors))
+                throw new Error(json.errors.join('\r\n'))
+            else
+                throw new Error('Something wrong happened')
+        }
+
+        document.location = '/'
+    }
+
     function createPostElement(post) {
 
         // DOM based XSS
@@ -44,6 +65,26 @@
 
         postElement.appendChild(header)
         postElement.appendChild(content)
+        
+        if (connectedUserMeta !== null ){
+
+            const userId = connectedUserMeta.getAttribute('content')
+
+            if (post.authorId === userId){
+
+                const deleteButton = document.createElement('button')
+                deleteButton.className = 'btn btn-outline-danger'
+                deleteButton.style.display = "block"
+                deleteButton.textContent = 'Delete post'
+                
+                deleteButton.onclick = function (){
+                    deletePost(post)
+                        .catch(err => alert(err.message))
+                }
+                
+                postElement.appendChild(deleteButton)
+            }
+        }
 
         return postElement
     }
@@ -56,13 +97,28 @@
 
         const response = await fetch(`/api/posts?limit=${itemsPerPage}&page=${encodeURIComponent(page)}`)
 
-        const { data, count } = await response.json()
+        const json = await response.json()
+
+        if (response.status !== 200){
+            
+            if (Array.isArray(json.errors))
+                throw new Error(json.errors.join('\r\n'))
+            else
+                throw new Error('Something wrong happened')
+        }
+
+        const { data, count } = json
 
         if ((page + 1) * itemsPerPage < count) {
             nextPageButton.onclick = function () {
                 loadPosts(page + 1)
+                    .catch(err => alert(err.message))
             }
             nextPageButton.enable()
+        }
+
+        if (page === 0 && data.length === 0){
+            postsDiv.innerHTML = "<p>No posts</p>"
         }
 
         for (const post of data) {
@@ -74,6 +130,7 @@
 
     window.addEventListener('load', function () {
         loadPosts(0)
+            .catch(err => alert(err.message))
     })
 
 })()

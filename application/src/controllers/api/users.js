@@ -31,6 +31,17 @@ router.post('/', jsonParser, async (req, res, next) => {
     }
 })
 
+router.get('/:id', async (req, res, next) => {
+    
+    try {
+
+        const user = await userService.findUserById(req.params.id)
+
+        res.json(user.toJSON())
+
+    } catch (e){ next(e) }
+})
+
 router.put('/:id/password', async (req, res, next) => {
     
     try {

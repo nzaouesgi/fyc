@@ -4,7 +4,7 @@ const express = require('express')
 const path = require('path')
 const frontRouter = require('../controllers/front/front')
 const usersApi = require('../controllers/api/users')
-const threadsApi = require('../controllers/api/posts')
+const postsApi = require('../controllers/api/posts')
 const authApi = require('../controllers/api/auth')
 const session = require('express-session')
 const { rootDir } = require('../utils')
@@ -44,13 +44,15 @@ app.use(frontRouter)
 
 const api = Router()
 api.use('/users', usersApi)
-api.use('/posts', threadsApi)
+api.use('/posts', postsApi)
 api.use('/auth', authApi)
+
+api.use(errors.apiErrorHandler)
 
 app.use('/api', api)
 
+app.all('/api/*', errors.apiNotFoundHandler)
 app.all('*', errors.notFoundHandler)
-
 app.use(errors.errorHandler)
 
 module.exports = app

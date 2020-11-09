@@ -12,6 +12,8 @@
             const formEntries = Array.from(formData.entries())
             const formObject = Object.fromEntries(formEntries)
 
+            let errMsg = 'Something wrong happened'
+
             const response = await fetch('/api/posts', {
                 method: 'POST',
                 body: JSON.stringify(formObject),
@@ -21,7 +23,17 @@
                 }
             })
 
-            const thread = await response.json()
+            const json = await response.json()
+
+            if (response.status !== 201){
+                
+                if (Array.isArray(json.errors))
+                    errMsg = json.errors[0]
+                
+                throw new Error(errMsg) 
+            }
+
+            const thread = json
 
             return thread
         }

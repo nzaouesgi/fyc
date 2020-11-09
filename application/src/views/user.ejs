@@ -16,24 +16,24 @@
 </div>
 <script type="application/javascript">
 
-window.addEventListener('load', function (){
+    window.addEventListener('load', function (){
 
-    // XSS in Javascript context
-    const user = <%- JSON.stringify(user) %>
+        // XSS in Javascript context
+        const user = <%- JSON.stringify(user) %>
 
-    const picture = document.getElementById('picture')
-    picture.src = user.picture ?  `/static/user_img/${user.picture}` : '/static/user.png'
-    picture.style.borderRadius = '25px'
-    picture.height = '100'
-    picture.width = '100'
-    picture.style.display = 'inline'
-    picture.style.objectFit = 'cover'
-    picture.className = 'm-2 d-block'
+        const picture = document.getElementById('picture')
+        picture.src = user.picture ?  `/static/user_img/${user.picture}` : '/static/user.png'
+        picture.style.borderRadius = '25px'
+        picture.height = '100'
+        picture.width = '100'
+        picture.style.display = 'inline'
+        picture.style.objectFit = 'cover'
+        picture.className = 'm-2 d-block'
 
-    document.getElementById('username').innerHTML = user.username
-    document.getElementById('email').innerHTML = user.email
-    document.getElementById('created-at').innerHTML = new Date(user.createdAt).toLocaleString()
-})
+        document.getElementById('username').innerHTML = user.username
+        document.getElementById('email').innerHTML = user.email
+        document.getElementById('created-at').innerHTML = new Date(user.createdAt).toLocaleString()
+    })
 
 </script>
 <%- include('partials/footer') -%>

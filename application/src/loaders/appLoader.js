@@ -7,7 +7,7 @@ const appLoader = async () => {
     
     app.listen(80)
     
-    await sequelize.sync({ force: true })
+    await sequelize.sync()
 }
 
 module.exports = appLoader

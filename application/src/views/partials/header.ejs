@@ -2,6 +2,9 @@
 <html>
 <head>
     <meta charset='utf-8'>
+    <% if (locals.connectedUser){ %>
+        <meta name="connected-user" content="<%- connectedUser.id %>">
+    <% } %>
     <title>Postbin</title>
     <script src="https://kit.fontawesome.com/82a545c333.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" 
