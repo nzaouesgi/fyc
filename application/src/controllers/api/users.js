@@ -1,7 +1,10 @@
 'use strict'
 
 const { Router } = require('express')
-const { UserEmailAlreadyTakenError, UserUsernameAlreadyTakenError } = require('../../services/exceptions/userExceptions')
+const { 
+    UserEmailAlreadyTakenError,
+    UserUsernameAlreadyTakenError 
+} = require('../../services/exceptions/userExceptions')
 const jsonParser = require('express').json()
 const userService = require('../../services/userService')
 const multer = require('multer')

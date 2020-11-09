@@ -9,7 +9,7 @@ const sqliteDatabasePath = path.join(os.tmpdir(), 'postbin_database.sqlite')
 const sequelize = new Sequelize({
     dialect: 'sqlite',
     storage: sqliteDatabasePath,
-    logging: console.log,
+    logging: false,
     dialectOptions: {
         multipleStatements: true
     }

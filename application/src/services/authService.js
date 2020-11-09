@@ -10,8 +10,6 @@ const authService = {
 
         const user = await userDao.findOneByEmail(email)
 
-        console.log(user)
-
         if (!(user instanceof User))
             return null
 
