@@ -49,8 +49,6 @@
         const formElement = document.getElementById('signup-form')
         const submitButton = document.getElementById('signup-form-submit')
 
-        console.log(submitButton)
-
         submitButton.onclick = function (ev) {
 
             ev.preventDefault()
@@ -66,7 +64,7 @@
             submitButton.disable()
 
             signup(formData)
-                .then(() => window.location = '/login')
+                .then(() => window.location = document.baseURI + 'login')
                 .catch(err => alert(err.message))
                 .finally(() => submitButton.enable())
         }

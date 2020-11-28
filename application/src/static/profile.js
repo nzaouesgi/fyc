@@ -66,7 +66,7 @@
             submit.disable()
 
             updateProfile(formData)
-                .then(newData => window.location = '/profile')
+                .then(newData => window.location = document.baseURI + 'profile')
                 .catch(err => alert(err.message))
                 .finally(() => submit.enable())
         }

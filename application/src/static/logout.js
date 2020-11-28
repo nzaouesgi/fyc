@@ -9,7 +9,7 @@
         })
 
             .finally(() => {
-                window.location = '/'
+                window.location = document.baseURI
             })
 
     })

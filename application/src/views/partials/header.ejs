@@ -2,6 +2,11 @@
 <html>
 <head>
     <meta charset='utf-8'>
+    <link rel="icon" href="data:,">
+    <base href="<%- locals.documentBase %>">
+    <% if (locals.csrfToken){ %>
+    <meta name="csrf-token" content="<%- locals.csrfToken %>">
+    <% } %>
     <% if (locals.connectedUser){ %>
         <meta name="connected-user" content="<%- connectedUser.id %>">
     <% } %>
@@ -25,6 +30,7 @@
         src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" 
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" 
         crossorigin="anonymous"></script>
+    <script type="application/javascript" src="/static/overrideFetch.js"></script>
     <script type="application/javascript" src="/static/extendPrototypes.js"></script>
 </head>
 <body>
