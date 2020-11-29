@@ -4,9 +4,6 @@
     <meta charset='utf-8'>
     <link rel="icon" href="data:,">
     <base href="<%- locals.documentBase %>">
-    <% if (locals.csrfToken){ %>
-    <meta name="csrf-token" content="<%- locals.csrfToken %>">
-    <% } %>
     <% if (locals.connectedUser){ %>
         <meta name="connected-user" content="<%- connectedUser.id %>">
     <% } %>

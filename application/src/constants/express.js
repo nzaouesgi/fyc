@@ -11,7 +11,6 @@ const compression = require('compression')
 const deserializeUser = require('../controllers/middlewares/deserializeUser')
 const SessionStore = require('connect-session-sequelize')(session.Store)
 const sequelize = require('../constants/sequelize')
-const csrf = require('../controllers/middlewares/csrf')
 const { Router } = require('express')
 
 const app = express()
@@ -38,7 +37,6 @@ app.use(session({
     secret: 'notverysecret'
 }))
 app.use(deserializeUser)
-app.use(csrf)
 
 app.use('/api', api)
 app.all('/api/*', errors.apiNotFoundHandler)
