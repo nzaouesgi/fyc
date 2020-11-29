@@ -35,6 +35,9 @@ app.use(session({
     resave: false,
 	saveUninitialized: true,
     store,
+    cookie: {
+        sameSite: 'strict'
+    },
     secret: 'notverysecret'
 }))
 app.use(deserializeUser)
