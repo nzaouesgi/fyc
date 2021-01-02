@@ -13,6 +13,13 @@ router.use((req, res, next) => {
     next()
 })
 
+router.use(async (req, res, next) => {
+    try {
+        res.locals.csrfToken = await req.generateCsrfToken()
+        next()
+    } catch (e){ next(e) }
+})
+
 router.get('/', (req, res, next) => {
     res.locals.param = req.query.param
     res.render('index')

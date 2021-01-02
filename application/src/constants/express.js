@@ -11,7 +11,6 @@ const compression = require('compression')
 const deserializeUser = require('../controllers/middlewares/deserializeUser')
 const SessionStore = require('connect-session-sequelize')(session.Store)
 const sequelize = require('../constants/sequelize')
-const { Router } = require('express')
 
 const app = express()
 
