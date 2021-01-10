@@ -8,10 +8,17 @@ const {
 const jsonParser = require('express').json()
 const userService = require('../../services/userService')
 const multer = require('multer')
+const { Roles } = require('../middlewares/controlRole')
+const controlLogic = require('../middlewares/controlLogic')
+const controlRole = require('../middlewares/controlRole')
 
 const router = Router()
 
-router.post('/', jsonParser, async (req, res, next) => {
+router.post('/', 
+
+controlRole(Roles.ANONYMOUS),
+
+jsonParser, async (req, res, next) => {
 
     try {
         
@@ -34,7 +41,9 @@ router.post('/', jsonParser, async (req, res, next) => {
     }
 })
 
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', 
+
+async (req, res, next) => {
     
     try {
 
@@ -45,13 +54,20 @@ router.get('/:id', async (req, res, next) => {
     } catch (e){ next(e) }
 })
 
-router.put('/:id/password', async (req, res, next) => {
+router.put('/:id/password', 
+
+controlRole(Roles.USER),
+
+controlLogic(req => {
+
+    if (req.session.user.id === req.params.id)
+        return true
     
-    try {
+    throw new Error('You cannot modify someone else password')
+}),
 
-
-
-    } catch (e){ next(e) }
+async (req, res, next) => {
+    res.status(500).end('Not implemented')
 })
 
 const multipartParser = multer({
@@ -59,7 +75,21 @@ const multipartParser = multer({
     preservePath: true
 })
 
-router.patch('/:id', multipartParser.single('picture'), async (req, res, next) => {
+router.patch('/:id', 
+
+controlRole(Roles.USER),
+
+controlLogic(req => {
+
+    if (req.session.user.id === req.params.id)
+        return true
+    
+    throw new Error('You cannot modify someone else profile')
+}),
+
+multipartParser.single('picture'), 
+
+async (req, res, next) => {
 
     try {
 

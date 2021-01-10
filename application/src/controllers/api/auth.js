@@ -2,10 +2,18 @@
 
 const { Router } = require('express')
 const authService = require('../../services/authService')
+const controlRole = require('../middlewares/controlRole')
+const Roles = controlRole.Roles
 const router = Router()
 const jsonParser = require('express').json
 
-router.post('/login', jsonParser(), (req, res, next) => {
+router.post('/login', 
+
+controlRole(Roles.ANONYMOUS),
+
+jsonParser(), 
+
+(req, res, next) => {
     
     authService.login(req.body)
     
@@ -24,7 +32,11 @@ router.post('/login', jsonParser(), (req, res, next) => {
     .catch(next)
 })
 
-router.delete('/logout', (req, res, next) => {
+router.delete('/logout', 
+
+controlRole(Roles.USER),
+
+(req, res, next) => {
 
     req.session.regenerate(err => {
         if (err){
