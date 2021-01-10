@@ -1,5 +1,7 @@
 'use strict'
 
+const User = require('../../models/User')
+
 const Roles = {
     ANY: 'any',
     USER: 'user',
@@ -7,7 +9,7 @@ const Roles = {
 }
 
 function isAuthenticated (req) {
-    return req.session.user !== undefined && req.session.user instanceof User
+    return typeof req.session.user === 'string'
 }
 
 function checkRoles(req, roles) {
