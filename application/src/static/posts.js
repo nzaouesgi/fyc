@@ -95,7 +95,7 @@
 
         nextPageButton.disable()
 
-        const response = await fetch(`/api/posts?limit=${itemsPerPage}&page=${encodeURIComponent(page)}`)
+        const response = await fetch(`/api/posts?limit=${encodeURIComponent(itemsPerPage)}&page=${encodeURIComponent(page)}`)
 
         const json = await response.json()
 

@@ -12,6 +12,7 @@ const deserializeUser = require('../controllers/middlewares/deserializeUser')
 const SessionStore = require('connect-session-sequelize')(session.Store)
 const sequelize = require('../constants/sequelize')
 const csrf = require('../controllers/middlewares/csrf')
+const csp = require('../controllers/middlewares/csp')
 
 const app = express()
 
