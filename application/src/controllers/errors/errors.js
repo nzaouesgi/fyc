@@ -4,12 +4,15 @@ const errorHandler = (err, req, res, next) => {
 
     console.error(err.stack)
 
+    const error = process.env.NODE_ENV === 'development' ? err.message : 'Something wrong happened'
+
     if (req.path.startsWith('/api/')){
-        res.status(500).json({ errors: [ err.message ] })
+
+        res.status(500).json({ errors: [ error ] })
         return
     }
 
-    res.status(500).render('error', { error: err.stack })
+    res.status(500).render('error', { error: error })
 }   
 
 const notFoundHandler = (req, res, next) => {
