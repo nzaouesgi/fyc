@@ -41,7 +41,6 @@ app.use(session({
     secret: 'this should be in .env and kept secret'
 }))
 app.use(deserializeUser)
-app.use(csrf)
 
 app.use('/api', api)
 app.all('/api/*', errors.apiNotFoundHandler)

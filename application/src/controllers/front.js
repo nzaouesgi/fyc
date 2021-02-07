@@ -8,13 +8,6 @@ const router = Router()
 
 router.use(csp)
 
-router.use(async (req, res, next) => {
-    try {
-        res.locals.csrfToken = await req.generateCsrfToken()
-        next()
-    } catch (e){ next(e) }
-})
-
 router.use((req, res, next) => {
     res.locals.documentBase = `${req.protocol}://${req.hostname}/app/`
     next()

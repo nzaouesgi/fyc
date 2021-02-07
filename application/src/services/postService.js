@@ -10,6 +10,10 @@ module.exports = {
         return await postDao.paginate({ page, limit })
     },
 
+    findById: async function (id){
+        return postDao.findById(id)
+    },
+
     create: async function ({ title, message, authorId }) {
 
         const id = v4()
