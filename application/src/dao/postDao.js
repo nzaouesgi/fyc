@@ -2,16 +2,28 @@
 
 const { QueryTypes } = require('sequelize')
 const Post = require('../models/Post')
+const moment = require('moment')
+const { currentSqlTimestamp } = require('./helpers')
 
 module.exports = {
 
     insertOne: async function ({ id, title, message, authorId }) {
 
         const sql = `INSERT INTO ${Post.tableName} (id, title, message, createdAt, updatedAt, authorId)` + 
-            ` VALUES ("${id}", "${title}", "${message}", "${new Date()}", "${new Date()}", "${authorId}")`
+            ` VALUES ($id, $title, $message, $createdAt, $updatedAt, $authorId)`
+
+        const timestamp = currentSqlTimestamp()
 
         await Post.sequelize.query(sql, {
-            type: QueryTypes.INSERT
+            type: QueryTypes.INSERT,
+            bind: { 
+                id, 
+                title, 
+                message, 
+                authorId, 
+                createdAt: timestamp, 
+                updatedAt: timestamp
+            }
         })
     },
 

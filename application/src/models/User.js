@@ -31,7 +31,9 @@ User.initialize = function (sequelize) {
         password: {
             type: DataTypes.STRING(255),
             allowNull: false
-        }
+        }, 
+
+        
 
     }, { sequelize })
 }

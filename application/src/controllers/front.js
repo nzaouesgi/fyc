@@ -1,13 +1,10 @@
 'use strict'
 
-const escapingFunctions = require('./middlewares/escaping')
 const { Router } = require('express')
 const userService = require('../services/userService')
 const csp = require('./middlewares/csp')
 
 const router = Router()
-
-router.use(escapingFunctions)
 
 router.use(csp)
 

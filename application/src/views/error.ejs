@@ -2,6 +2,8 @@
 <div class="container my-2">
 <h1>Woops !</h1>
 <p>Something wrong happened... Get back to <a href="">home</a>.</p>
+<% if (error) { %>
 <small><%- encodeForHtml(error) %></small>
+<% } %>
 </div>
 <%- include('partials/footer') -%>

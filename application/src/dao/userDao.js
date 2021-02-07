@@ -2,15 +2,17 @@
 
 const User = require('../models/User')
 const { QueryTypes } = require('sequelize')
+const { currentSqlTimestamp } = require('./helpers')
 
 const userDao = {
 
     findOneById: async function (id){
         
-        const sql = `SELECT * FROM ${User.tableName} WHERE id = "${id}"`
+        const sql = `SELECT * FROM ${User.tableName} WHERE id = $id`
 
         const user = await User.sequelize.query(sql, {
             type: QueryTypes.SELECT,
+            bind: { id },
             plain: true,
             mapToModel: true,
             model: User
@@ -21,11 +23,12 @@ const userDao = {
 
     findOneByEmail: async function (email){
         
-        const sql = `SELECT * FROM ${User.tableName} WHERE email = "${email}"`
+        const sql = `SELECT * FROM ${User.tableName} WHERE email = $email`
 
         const user = await User.sequelize.query(sql, {
             type: QueryTypes.SELECT,
             plain: true,
+            bind: { email },
             mapToModel: true,
             model: User
         })
@@ -35,11 +38,12 @@ const userDao = {
 
     findOneByUsername: async function (username){
         
-        const sql = `SELECT * FROM ${User.tableName} WHERE username = "${username}"`
+        const sql = `SELECT * FROM ${User.tableName} WHERE username = $username`
 
         const user = await User.sequelize.query(sql, {
             type: QueryTypes.SELECT,
             plain: true,
+            bind: { username },
             mapToModel: true,
             model: User
         })
@@ -50,10 +54,20 @@ const userDao = {
     insertOne: async function ({ id, username, email, password }){
 
         const sql = `INSERT INTO ${User.tableName} (id, email, username, password, createdAt, updatedAt) ` + 
-            `VALUES ("${id}", "${email}", "${username}", "${password}", "${new Date()}", "${new Date()}")`
+            `VALUES ($id, $email, $username, $password, $createdAt, $updatedAt)`
+
+        const timestamp = currentSqlTimestamp()
 
         await User.sequelize.query(sql, {
-            type: QueryTypes.INSERT
+            type: QueryTypes.INSERT,
+            bind: {
+                id,
+                username,
+                email,
+                password,
+                createdAt: timestamp,
+                updatedAt: timestamp
+            }
         })
     },
 }

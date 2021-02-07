@@ -7,7 +7,7 @@
     <% if (locals.csrfToken){ %>
     <meta name="csrf-token" content="<%- encodeForHtml(locals.csrfToken) %>">
     <% } %>
-    <% if (locals.connectedUser){ %>
+    <% if (typeof locals.connectedUser === 'object'){ %>
         <meta name="connected-user" content="<%- encodeForHtml(connectedUser.id) %>">
     <% } %>
     <title>Postbin</title>

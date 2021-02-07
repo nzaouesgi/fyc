@@ -13,15 +13,18 @@ const SessionStore = require('connect-session-sequelize')(session.Store)
 const sequelize = require('../constants/sequelize')
 const csrf = require('../controllers/middlewares/csrf')
 const csp = require('../controllers/middlewares/csp')
+const escaping = require('../controllers/middlewares/escaping')
 
 const app = express()
 
 for (const [key, value] of Object.entries({
     'view engine': 'ejs',
+    'strict routing': true,
     'views': path.resolve(rootDir, 'views'),
     'x-powered-by': false
 })) app.set(key, value)
 
+app.use(escaping)
 
 app.use(compression())
 

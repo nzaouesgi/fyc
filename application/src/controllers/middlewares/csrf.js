@@ -31,7 +31,7 @@ module.exports = (req, res, next) => {
     const checkOrigin  = url => typeof url === 'string' && acceptableOrigins.includes((new URL(url)).hostname)
 
     if (checkOrigin(req.headers['origin']) !== true && checkOrigin(req.headers['referrer']) !== true)
-        throw new Error('Bad referrer check')
+        throw new Error('Bad referrer/origin check')
 
     // CSRF Token check
     const suppliedToken = req.headers['x-csrf-token']
