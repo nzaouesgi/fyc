@@ -33,7 +33,7 @@
         const header = document.createElement('div')
 
         const userImage = document.createElement('img')
-        userImage.src = post.author.picture ?  `/static/user_img/${post.author.picture}` : '/static/user.png'
+        userImage.src = post.author.picture ?  `/static/user_img/${encodeURIComponent(post.author.picture)}` : '/static/user.png'
         userImage.style.borderRadius = '25px'
         userImage.height = '50'
         userImage.width = '50'
@@ -42,12 +42,12 @@
         userImage.className = 'mr-2'
         
         const title = document.createElement('h5')
-        title.innerHTML = post.title
+        title.textContent = post.title
         title.style.fontWeight = 'bold'
         title.style.display = 'inline'
 
         const userInfo = document.createElement('a')
-        userInfo.href = `${document.baseURI}users/${post.author.id}`
+        userInfo.href = `${document.baseURI}users/${encodeURIComponent(post.author.id)}`
         userInfo.textContent = post.author.username
 
         const details = document.createElement('small')
@@ -57,7 +57,7 @@
         details.style.display = 'inline'
 
         const content = document.createElement('p')
-        content.innerHTML = post.message
+        content.textContent = post.message
 
         header.appendChild(userImage)
         header.appendChild(title)
@@ -125,7 +125,6 @@
             postsDiv.appendChild(createPostElement(post))
             postsDiv.appendChild(document.createElement('hr'))
         }
-
     }
 
     window.addEventListener('load', function () {
