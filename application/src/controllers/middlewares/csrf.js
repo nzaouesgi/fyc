@@ -5,6 +5,13 @@ const util = require('util')
 
 const pRandomBytes = util.promisify(crypto.randomBytes)
 
+// This should be in .env
+const acceptableOrigins = [ 'postbin.local' ]
+
+if (process.env.NODE_ENV !== 'production'){
+    acceptableOrigins.push('127.0.0.1', 'localhost')
+}
+
 module.exports = (req, res, next) => {
 
     req.generateCsrfToken = async function () {
@@ -15,28 +22,29 @@ module.exports = (req, res, next) => {
 
     const whitelistedMethods = ['get', 'head', 'options']
 
-    if (whitelistedMethods.some(method => method === req.method.toLowerCase()) === true) {
+    if (whitelistedMethods.includes(req.method.toLowerCase()) === true) {
         next()
         return
     }
 
+    // Origin/Referrer check (hardening)
+    const checkOrigin  = url => typeof url === 'string' && acceptableOrigins.includes((new URL(url)).hostname)
+
+    if (checkOrigin(req.headers['origin']) !== true && checkOrigin(req.headers['referrer']) !== true)
+        throw new Error('Bad referrer check')
+
+    // CSRF Token check
     const suppliedToken = req.headers['x-csrf-token']
     const sessionToken = req.session.csrfToken
 
-    if (typeof sessionToken !== 'string') {
-        next(new Error(`No CSRF token in session data`))
-        return
-    }
+    if (typeof sessionToken !== 'string') 
+        throw new Error(`No CSRF token in session data`)
 
-    if (typeof suppliedToken !== 'string') {
-        next(new Error('No CSRF Token was supplied'))
-        return
-    }
+    if (typeof suppliedToken !== 'string') 
+        throw new Error('No CSRF Token was supplied')
 
-    if (crypto.timingSafeEqual(Buffer.from(suppliedToken, 'hex'), Buffer.from(sessionToken, 'hex')) !== true) {
-        next(new Error('Wrong CSRF token value'))
-        return
-    }
-
+    if (crypto.timingSafeEqual(Buffer.from(suppliedToken, 'hex'), Buffer.from(sessionToken, 'hex')) !== true) 
+        throw new Error('Wrong CSRF token value')
+    
     next()
 }

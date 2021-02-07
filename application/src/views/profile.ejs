@@ -9,11 +9,11 @@
         <div class="card-body">
             <form id="profile-form" class="m-3">
                 <label class="font-weight-bold">Username</label>
-                <input type="text" name="username" value="<%- connectedUser.username %>" class="my-2 form-control" placeholder="Username">
+                <input type="text" name="username" value="<%- encodeForHtml(connectedUser.username) %>" class="my-2 form-control" placeholder="Username">
                 <label class="font-weight-bold">Profile picture</label>
 
                 <% if (connectedUser.picture) { %>
-                <img width="100" src="/static/user_img/<%- connectedUser.picture %>">
+                <img width="100" src="/static/user_img/<%- encodeForHtml(encodeForUrlParameter(connectedUser.picture)) %>">
                 <% } %>
                 <input type="file" class="form-control-file my-2" name="picture">
                 <button type="submit" class="btn btn-dark" id="profile-form-submit">Update profile</button>

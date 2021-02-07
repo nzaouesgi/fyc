@@ -3,12 +3,12 @@
 <head>
     <meta charset='utf-8'>
     <link rel="icon" href="data:,">
-    <base href="<%- locals.documentBase %>">
+    <base href="<%- encodeForHtml(locals.documentBase) %>">
     <% if (locals.csrfToken){ %>
-    <meta name="csrf-token" content="<%- locals.csrfToken %>">
+    <meta name="csrf-token" content="<%- encodeForHtml(locals.csrfToken) %>">
     <% } %>
     <% if (locals.connectedUser){ %>
-        <meta name="connected-user" content="<%- connectedUser.id %>">
+        <meta name="connected-user" content="<%- encodeForHtml(connectedUser.id) %>">
     <% } %>
     <title>Postbin</title>
     <script src="https://kit.fontawesome.com/82a545c333.js" crossorigin="anonymous"></script>

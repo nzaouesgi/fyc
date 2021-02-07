@@ -18,7 +18,9 @@
 
     window.addEventListener('load', function (){
 
-        const user = <%- JSON.stringify(user) %>
+        const userJson = "<%- encodeForJavascript(JSON.stringify(user)) %>"
+
+        const user = JSON.parse(userJson)
 
         const picture = document.getElementById('picture')
         picture.src = user.picture ?  `/static/user_img/${user.picture}` : '/static/user.png'
