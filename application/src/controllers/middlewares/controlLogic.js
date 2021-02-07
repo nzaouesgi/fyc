@@ -9,7 +9,7 @@ module.exports = logics => {
         const deny = e => {
             res.status(403).json({ 
                 errors: [ 
-                    e instanceof Error ? e.message : 'Your are not allowed to performed this action.'  
+                    e instanceof Error ? e.message : 'Your are not allowed to perform this action.'  
                 ] 
             })
         }
@@ -18,12 +18,12 @@ module.exports = logics => {
 
             for (const logic of logics) {
 
-                let res = logic(req, res)
+                let result = logic(req, res)
 
-                if (res instanceof Promise)
-                    res = await res
+                if (result instanceof Promise)
+                    result = await result
 
-                if (typeof res === 'boolean' && res === true) {
+                if (typeof result === 'boolean' && result === true) {
                     next()
                     return
                 }

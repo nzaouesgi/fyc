@@ -58,9 +58,9 @@ router.put('/:id/password',
 
 controlRole(Roles.USER),
 
-controlLogic(req => {
+controlLogic((req, res) => {
 
-    if (req.session.user.id === req.params.id)
+    if (res.locals.connectedUser.id === req.params.id)
         return true
     
     throw new Error('You cannot modify someone else password')
@@ -79,9 +79,9 @@ router.patch('/:id',
 
 controlRole(Roles.USER),
 
-controlLogic(req => {
+controlLogic((req, res) => {
 
-    if (req.session.user.id === req.params.id)
+    if (res.locals.connectedUser.id === req.params.id)
         return true
     
     throw new Error('You cannot modify someone else profile')

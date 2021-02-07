@@ -1,6 +1,7 @@
 'use strict'
 
 const { Router, json } = require('express')
+const Post = require('../../models/Post')
 const postService = require('../../services/postService')
 const controlLogic = require('../middlewares/controlLogic')
 const controlRole = require('../middlewares/controlRole')
@@ -55,9 +56,9 @@ controlLogic(async (req, res) => {
     
     const { id } = req.params
     
-    const post = postService.findById(id)
+    const post = await postService.findById(id)
 
-    if (post.author.id !== req.session.user.id)
+    if ((post instanceof Post) !== true || post.author.id !== res.locals.connectedUser.id)
         throw new Error('This post does not belong to you.')
 
     return true
