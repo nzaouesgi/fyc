@@ -8,13 +8,14 @@ const Roles = {
     ANONYMOUS: 'anonymous'
 }
 
-function isAuthenticated (req) {
-    return typeof req.session.user === 'string'
+function isAuthenticated (res) {
+
+    return (res.locals.connectedUser instanceof User) === true
 }
 
-function checkRoles(req, roles) {
+function checkRoles(req, res, roles) {
 
-    const authenticated = isAuthenticated(req)
+    const authenticated = isAuthenticated(res)
 
     for (const level of roles) {
 
@@ -51,7 +52,7 @@ module.exports = roles => {
 
     return (req, res, next) => {
 
-        if (checkRoles(req, roles) !== true){
+        if (checkRoles(req, res, roles) !== true){
             res.status(403).json({ errors: [ 'You do not have the required privilege to perform this action' ] })
             return
         }

@@ -6,12 +6,19 @@ const controlRole = require('../middlewares/controlRole')
 const Roles = controlRole.Roles
 const router = Router()
 const jsonParser = require('express').json
+const Joi = require('joi')
+const validate = require('../middlewares/validate')
 
 router.post('/login', 
 
 controlRole(Roles.ANONYMOUS),
 
 jsonParser(), 
+
+validate(Joi.object({
+    email: Joi.string().email().required(),
+    password: Joi.string().min(1).required()
+})),
 
 (req, res, next) => {
     

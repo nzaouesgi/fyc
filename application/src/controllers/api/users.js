@@ -11,14 +11,41 @@ const multer = require('multer')
 const { Roles } = require('../middlewares/controlRole')
 const controlLogic = require('../middlewares/controlLogic')
 const controlRole = require('../middlewares/controlRole')
+const Joi = require('joi')
+const validate = require('../middlewares/validate')
 
 const router = Router()
+
+const passwordSchema = Joi.string()
+    .min(8)
+    .regex(/a-z/)
+    .regex(/A-Z/)
+    .regex(/0-9/)
+    .required()
+
+const usernameSchema = Joi.string()
+    .alphanum()
+    .min(3)
+    .max(255)
+    .required()
+
+const emailSchema = Joi.string()
+    .email()
+    .required()
 
 router.post('/', 
 
 controlRole(Roles.ANONYMOUS),
 
-jsonParser, async (req, res, next) => {
+jsonParser, 
+
+validate(Joi.object({
+    email: emailSchema,
+    username: usernameSchema,
+    password: passwordSchema
+})),
+
+async (req, res, next) => {
 
     try {
         
@@ -43,6 +70,10 @@ jsonParser, async (req, res, next) => {
 
 router.get('/:id', 
 
+validate(Joi.object({
+    id: Joi.string().uuid().required()
+}), 'params'),
+
 async (req, res, next) => {
     
     try {
@@ -66,6 +97,13 @@ controlLogic((req, res) => {
     throw new Error('You cannot modify someone else password')
 }),
 
+jsonParser,
+
+validate(Joi.object({
+    current: Joi.string().required(),
+    new: passwordSchema
+})),
+
 async (req, res, next) => {
     res.status(500).end('Not implemented')
 })
@@ -88,6 +126,10 @@ controlLogic((req, res) => {
 }),
 
 multipartParser.single('picture'), 
+
+validate(Joi.object({
+    username: usernameSchema
+})),
 
 async (req, res, next) => {
 

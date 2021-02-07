@@ -5,11 +5,22 @@ const Post = require('../../models/Post')
 const postService = require('../../services/postService')
 const controlLogic = require('../middlewares/controlLogic')
 const controlRole = require('../middlewares/controlRole')
+const validate = require('../middlewares/validate')
 const Roles = controlRole.Roles
+const Joi = require('joi')
+
 
 const router = Router()
 
-router.get('/', async (req, res, next) => {
+router.get('/', 
+
+validate(Joi.object({
+    page: Joi.number().min(0),
+    limit: Joi.number().min(1).max(100)
+}), 'query'),
+
+
+async (req, res, next) => {
 
     try {
 
@@ -32,6 +43,17 @@ controlRole(Roles.USER),
 
 json(), 
 
+validate(Joi.object({
+    title: Joi.string()
+        .min(1)
+        .max(255)
+        .required(),
+    message: Joi.string()
+        .min(1)
+        .max(1024)
+        .required()
+})),
+
 async (req, res, next) => {
 
     try {
@@ -49,6 +71,10 @@ async (req, res, next) => {
 })
 
 router.delete('/:id', 
+
+validate(Joi.object({
+    id: Joi.string().uuid().required()
+}), 'params'),
 
 controlRole(Roles.USER),
 
