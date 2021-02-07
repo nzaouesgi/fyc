@@ -1,6 +1,6 @@
 'use strict'
 
-const crypto = require('crypto')
+const argon2 = require('argon2')
 const User = require('../models/User')
 const { v4 } = require('uuid')
 const userDao = require('../dao/userDao')
@@ -13,8 +13,13 @@ const userService = {
 
     createUser: async function ({ email, username, password }) {
 
-        const hash = crypto.createHash('md5')
-        hash.update(password)
+        const hash = await argon2.hash(password, {
+            hashLength: 32,
+            saltLength: 15,
+            timeCost: 400,
+            memoryCost: 400,
+            parallelism: 4
+        })
 
         const existingWithMail = await userDao.findOneByEmail(email)
 
@@ -30,7 +35,7 @@ const userService = {
             id: v4(), 
             username, 
             email, 
-            password: hash.digest('hex') 
+            password: hash
         })
 
         const createdUser = await userDao.findOneByEmail(email)
@@ -57,6 +62,13 @@ const userService = {
         const user = await userDao.findOneById(id)
 
         const pictureUploadFolder = path.join(rootDir, 'static/user_img')
+
+        if (fields.username && fields.username !== user.username){
+            const exists = await userDao.findOneByUsername(fields.username)
+            if (exists instanceof User){
+                throw new UserUsernameAlreadyTakenError('Username is already taken')
+            }
+        }
 
         if (file){
 

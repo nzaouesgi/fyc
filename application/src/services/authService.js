@@ -2,7 +2,7 @@
 
 const User = require('../models/User')
 const userDao = require('../dao/userDao')
-const crypto = require('crypto')
+const argon2 = require('argon2')
 
 const authService = {
 
@@ -13,10 +13,7 @@ const authService = {
         if (!(user instanceof User))
             return null
 
-        const hash = crypto.createHash('md5')
-        hash.update(password)
-
-        if (hash.digest('hex') !== user.password)
+        if ((await argon2.verify(user.password, password)) !== true)
             return null
         
         return user
