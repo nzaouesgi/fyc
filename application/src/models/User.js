@@ -33,9 +33,9 @@ User.initialize = function (sequelize) {
             allowNull: false
         }, 
 
-        
-
-    }, { sequelize })
+    }, { sequelize, 
+        defaultScope: { attributes: { exclude: [ 'password' ] }}
+    })
 }
 
 User.associate = function (models) {

@@ -8,15 +8,7 @@ const userDao = {
 
     findOneById: async function (id){
         
-        const sql = `SELECT * FROM ${User.tableName} WHERE id = $id`
-
-        const user = await User.sequelize.query(sql, {
-            type: QueryTypes.SELECT,
-            bind: { id },
-            plain: true,
-            mapToModel: true,
-            model: User
-        })
+        const user = await User.findByPk(id)
 
         return user
     },
