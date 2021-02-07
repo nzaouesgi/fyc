@@ -53,25 +53,29 @@
             return errors
         }
 
-        submit.onclick = function (ev){
-            
-            ev.preventDefault()
+        if (submit){
 
-            const formData = new FormData(form)
+            submit.onclick = function (ev){
+                
+                ev.preventDefault()
 
-            const errors = getFormErrors(formData)
+                const formData = new FormData(form)
 
-            if (errors.length){
-                alert(errors.join('\r\n'))
-                return
+                const errors = getFormErrors(formData)
+
+                if (errors.length){
+                    alert(errors.join('\r\n'))
+                    return
+                }
+
+                submit.disable()
+
+                createThread(formData)
+                    .then(thread => window.location = document.baseURI)
+                    .catch(err => alert(err.message))
+                    .finally(() => submit.enable())
             }
 
-            submit.disable()
-
-            createThread(formData)
-                .then(thread => window.location = document.baseURI)
-                .catch(err => alert(err.message))
-                .finally(() => submit.enable())
         }
 
 

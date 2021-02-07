@@ -66,7 +66,11 @@
             submit.disable()
 
             updateProfile(formData)
+<<<<<<< HEAD
                 .then(newData => window.location = document.baseURI + '/profile')
+=======
+                .then(newData => window.location = document.baseURI + 'profile')
+>>>>>>> csrf-stateful
                 .catch(err => alert(err.message))
                 .finally(() => submit.enable())
         }

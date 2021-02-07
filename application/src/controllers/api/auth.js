@@ -18,10 +18,7 @@ router.post('/login', jsonParser(), (req, res, next) => {
 
         req.session.user = user.id
 
-        req.session.save(err => {
-            
-            res.status(204).end()
-        })
+        res.status(204).end()
     })
     
     .catch(next)

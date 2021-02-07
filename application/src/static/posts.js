@@ -23,7 +23,7 @@
                 throw new Error('Something wrong happened')
         }
 
-        document.location = '/'
+        document.location = document.baseURI
     }
 
     function createPostElement(post) {
@@ -47,7 +47,11 @@
         title.style.display = 'inline'
 
         const userInfo = document.createElement('a')
+<<<<<<< HEAD
         userInfo.href = document.baseURI + `/users/${post.author.id}`
+=======
+        userInfo.href = `${document.baseURI}users/${post.author.id}`
+>>>>>>> csrf-stateful
         userInfo.textContent = post.author.username
 
         const details = document.createElement('small')
