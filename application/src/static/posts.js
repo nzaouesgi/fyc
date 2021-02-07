@@ -47,7 +47,7 @@
         title.style.display = 'inline'
 
         const userInfo = document.createElement('a')
-        userInfo.href = `/users/${post.author.id}`
+        userInfo.href = document.baseURI + `/users/${post.author.id}`
         userInfo.textContent = post.author.username
 
         const details = document.createElement('small')

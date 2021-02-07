@@ -69,7 +69,7 @@
             submit.disable()
 
             createThread(formData)
-                .then(thread => window.location = `/`)
+                .then(thread => window.location = document.baseURI)
                 .catch(err => alert(err.message))
                 .finally(() => submit.enable())
         }

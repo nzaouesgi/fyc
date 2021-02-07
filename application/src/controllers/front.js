@@ -1,12 +1,17 @@
 'use strict'
 
-const escapingFunctions = require('../middlewares/escaping')
+const escapingFunctions = require('./middlewares/escaping')
 const { Router } = require('express')
-const userService = require('../../services/userService')
+const userService = require('../services/userService')
 
 const router = Router()
 
 router.use(escapingFunctions)
+
+router.use((req, res, next) => {
+    res.locals.documentBase = `${req.protocol}://${req.hostname}/app/`
+    next()
+})
 
 router.get('/', (req, res, next) => {
     res.render('index')
